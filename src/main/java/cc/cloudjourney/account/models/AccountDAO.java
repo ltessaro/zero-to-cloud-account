@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 @Transactional
 public interface AccountDAO extends CrudRepository<Account, Long> {
-  public Optional<Account> findByUserId(Long userId);
+	public Optional<Account> findByUserId(String userId);
 }

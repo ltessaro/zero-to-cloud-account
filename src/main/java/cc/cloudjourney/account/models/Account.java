@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Account {
@@ -27,34 +28,32 @@ public class Account {
     public String getAccountType() {
         return accountType;
     }
-
-    public String getAccountStatus() {
-        return accountStatus;
-    }
     
-    public Long getUserId() {
+    public String getUserId() {
     	return userId;
     }
 
-    private Long userId;
-    
+	@NotNull
+    private String userId;
+	@NotNull
     private double balance;
-    
-    private String accountStatus;
-    
+	@NotNull
     private String accountType;
 
-    public Account(Long userId, String accountStatus, String accountType) {
+    public Account(String userId, String accountType) {
         this.userId = userId;
-        this.accountStatus = accountStatus;
         this.accountType = accountType;
     }
 
+    public Account(Long id) {
+        this.id = id;
+    }
+    
     @Override
     public String toString() {
         return String.format(
-                "Account[id=%d, userId=%s, balance=%s, status='%s', type='%s']",
-                id, userId, balance, accountStatus, accountType);
+                "Account[id=%d, userId=%s, balance=%s, type='%s']",
+                id, userId, balance, accountType);
     }
     
     Account() {

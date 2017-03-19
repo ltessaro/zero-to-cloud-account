@@ -11,7 +11,7 @@ class UserAccountNotFoundException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 1715850382499900092L;
 
-	public UserAccountNotFoundException(Long userId) {
-		super("Could not find account for user '" + userId + "'.");
+	public UserAccountNotFoundException(String userId) {
+		super(String.format("Could not find account for user %s'.", userId));
 	}
 }
