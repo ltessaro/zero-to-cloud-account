@@ -16,7 +16,7 @@ public class Account {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToMany(mappedBy = "transaction.account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<Transaction> transactions;
 
     public Long getId() {
