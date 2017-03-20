@@ -1,13 +1,9 @@
 package cc.cloudjourney.account.models;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -16,7 +12,6 @@ public class Account {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Set<Transaction> transactions;
 
     public Long getId() {
         return id;
@@ -37,13 +32,6 @@ public class Account {
     public String getUserId() {
     	return userId;
     }
-    
-    @OneToMany(mappedBy = "transactionAccount", cascade = CascadeType.ALL)
-	public Set<Transaction> getTransactions() {
-		return transactions;
-	}
-
-
 
 	@NotNull
     private String userId;
