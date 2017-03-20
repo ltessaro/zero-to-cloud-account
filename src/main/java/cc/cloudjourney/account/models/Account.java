@@ -16,6 +16,7 @@ public class Account {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @OneToMany(mappedBy = "transaction.account", cascade = CascadeType.ALL)
 	private List<Transaction> transactions;
 
     public Long getId() {
@@ -38,7 +39,6 @@ public class Account {
     	return userId;
     }
 
-    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     public List<Transaction> getTransactions() {
     	return this.transactions;
     }
