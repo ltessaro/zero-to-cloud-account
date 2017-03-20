@@ -20,6 +20,8 @@ public class Transaction {
 	private Long id;
 	
 	@NotNull
+	@ManyToOne
+    @JoinColumn(name = "account_id")
 	private Account account;
 	@NotNull
 	private Date transactionAt;
@@ -32,8 +34,6 @@ public class Transaction {
 		return id;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
 	}
