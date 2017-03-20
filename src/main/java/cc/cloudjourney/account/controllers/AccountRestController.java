@@ -14,8 +14,7 @@ import cc.cloudjourney.account.models.AccountDAO;
 public class AccountRestController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Iterable<Account> listAccounts(@PathVariable String userId) {
-		this.validateUser(userId);
+	public Iterable<Account> listAccounts() {
 		return this.accountDao.findAll();
 	}
 
