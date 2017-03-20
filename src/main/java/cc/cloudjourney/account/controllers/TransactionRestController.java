@@ -16,7 +16,7 @@ import cc.cloudjourney.account.models.TransactionDAO;
 public class TransactionRestController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Iterable<Transaction> listTransactions(@PathVariable String userId) {
+	public Iterable<Transaction> listTransactions() {
 		return this.transactionDAO.findAll();
 	}
  
