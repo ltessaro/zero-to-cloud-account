@@ -20,7 +20,7 @@ public class Transaction {
 	private Long id;
 	
 	@NotNull
-	private Account transactionAccount;
+	private Account account;
 	@NotNull
 	private Date transactionAt;
 	@NotNull
@@ -34,8 +34,8 @@ public class Transaction {
 
 	@ManyToOne
     @JoinColumn(name = "account_id")
-	public Account getTransactionAccount() {
-		return transactionAccount;
+	public Account getAccount() {
+		return account;
 	}
 
 	public Date getTransactionAt() {
@@ -51,7 +51,7 @@ public class Transaction {
 	}
 
 	public Transaction(Long accountId, double amount, String transType, Date transAt) {
-		this.transactionAccount = new Account(accountId);
+		this.account = new Account(accountId);
 		this.amount = amount;
 		this.transactionType = transType;
 		this.transactionAt = transAt;
@@ -60,7 +60,7 @@ public class Transaction {
 	@Override
 	public String toString() {
 		return String.format("Transaction[id=%d, account=%s, amount=%s, transactionType='%s', transactionAt='%s']", id,
-				transactionAccount.getId(), amount, transactionType, sdf.format(transactionAt));
+				account.getId(), amount, transactionType, sdf.format(transactionAt));
 	}
 
 	Transaction() {
