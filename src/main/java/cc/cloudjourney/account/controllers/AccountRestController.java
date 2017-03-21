@@ -1,9 +1,14 @@
 package cc.cloudjourney.account.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cc.cloudjourney.account.models.Account;
@@ -14,14 +19,18 @@ import cc.cloudjourney.account.models.AccountDAO;
 public class AccountRestController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Iterable<Account> listAccounts() {
-		return this.accountDao.findAll();
+	public ResponseEntity<Iterable<Account>> listAccounts() {
+		return new ResponseEntity<Iterable<Account>>(this.accountDao.findAll(), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{userId}")
-	public Account getAccount(@PathVariable String userId) {
-		this.validateUser(userId);
-		return this.accountDao.findByUserId(userId).get();
+	public ResponseEntity<Account> getAccount(@PathVariable String userId) {
+		try {
+			this.validateUser(userId);
+			return new ResponseEntity<Account>(this.accountDao.findByUserId(userId).get(), HttpStatus.OK);
+		} catch (UserAccountNotFoundException ex) {
+			return new ResponseEntity<Account>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	private void validateUser(String userId) {
@@ -29,9 +38,8 @@ public class AccountRestController {
 				() -> new UserAccountNotFoundException(userId));
 	}
  
-	@RequestMapping(method = RequestMethod.GET, value = "/create")
-	public Account createAccount() {
-		long salary = 0;
+	@RequestMapping(method = RequestMethod.GET, value = "/create/{userId}")
+	public ResponseEntity<Account> createAccount(@PathVariable String userId, @RequestParam("salary") long salary) {
 		String accType = "student";
 		if (salary > 500000) {
 			accType = "private";
@@ -42,9 +50,9 @@ public class AccountRestController {
 		} else if (salary > 20000) {
 			accType = "standard";
 		}
-		Account acc = new Account("1234567890", accType);
+		Account acc = new Account(userId, accType);
 		acc.setBalance(salary/10000);
-		return this.accountDao.save(acc);
+		return new ResponseEntity<Account>(this.accountDao.save(acc), HttpStatus.OK);
 	}
 	
 	@Autowired
