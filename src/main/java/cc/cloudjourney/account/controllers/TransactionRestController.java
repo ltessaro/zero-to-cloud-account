@@ -24,11 +24,13 @@ public class TransactionRestController {
 	public Transaction createTransaction(@PathVariable Long accountID) {
 		//deposit, withdrawal, transfer, tax
 		Transaction trans = new Transaction(accountID, 12.0, "withdrawal", new Date());
+		//FIXME: update my balance
 		return this.transactionDAO.save(trans);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/transfer/{accountID}/{amount}")
 	public Transaction createTransaction(@PathVariable Long accountID, double amount) {
+		//FIXME: get my account from session
 		Long myAccountID = 0l;
 		if (amount < 1) throw new TransactionAmountException(amount);
 		

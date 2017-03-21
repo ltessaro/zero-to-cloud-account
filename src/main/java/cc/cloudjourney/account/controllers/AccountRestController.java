@@ -1,7 +1,5 @@
 package cc.cloudjourney.account.controllers;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +50,7 @@ public class AccountRestController {
 		}
 		Account acc = new Account(userId, accType);
 		acc.setBalance(salary/10000);
+		//FIXME: update balance
 		return new ResponseEntity<Account>(this.accountDao.save(acc), HttpStatus.OK);
 	}
 	
