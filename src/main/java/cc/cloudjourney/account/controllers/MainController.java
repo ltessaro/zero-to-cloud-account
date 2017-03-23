@@ -10,7 +10,7 @@ public class MainController {
   @RequestMapping("/")
   @ResponseBody
   public String index() {
-    return "<h1>Zero to Cloud - Account - by LR!</h1>";
+    return "<h1>Zero to Cloud - Account - by Z2C!</h1>";
   }
 
 }
